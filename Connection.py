@@ -18,9 +18,9 @@ time.sleep(3)
 
 sim.setObjectFloatParam(armjoint1, sim.jointfloatparam_maxvel, 0.1)
 sim.setObjectFloatParam(armjoint1, sim.jointfloatparam_maxaccel, 0.1)
-sim.setJointTargetPosition(armjoint1, -0.5)
+sim.setJointTargetPosition(armjoint1, -0.095)
 
-time.sleep(3)
+""" time.sleep(3)
 
 sim.setObjectFloatParam(armjoint2, sim.jointfloatparam_maxvel, 0.1)
 sim.setObjectFloatParam(armjoint2, sim.jointfloatparam_maxaccel, 0.1)
@@ -31,7 +31,7 @@ time.sleep(3)
 sim.setObjectFloatParam(armjoint3, sim.jointfloatparam_maxvel, 0.1)
 sim.setObjectFloatParam(armjoint3, sim.jointfloatparam_maxaccel, 0.1)
 sim.setJointTargetPosition(armjoint3, 1)
-
+ """
 time.sleep(3)
 
 
