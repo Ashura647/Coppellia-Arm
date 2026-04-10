@@ -12,7 +12,7 @@ armjoint1,armjoint2,armjoint3,armjoint4,armjoint5,armjoint6=(
     sim.getObject('/PArm/joint1/joint2/joint3/joint4/joint5/joint6'),
 )
 
-fingerjoint = sim.getObject('/PGripStraight/motor')
+fingerjoint1 = sim.getObject('/PGripStraight/motor')
 
 sim.startSimulation()
 
@@ -47,9 +47,10 @@ sim.setObjectFloatParam(armjoint2, sim.jointfloatparam_maxaccel, 0.1)
 sim.setJointTargetPosition(armjoint2, 1.2 )
  """
 time.sleep(3)
-sim.setObjectFloatParam(fingerjoint, sim.jointfloatparam_maxvel, 0.1)
-sim.setObjectFloatParam(fingerjoint, sim.jointfloatparam_maxaccel, 0.1)
-sim.setJointTargetPosition(fingerjoint, 0.1 )
+sim.setObjectFloatParam(fingerjoint1, sim.jointfloatparam_maxvel, 0.1)
+sim.setObjectFloatParam(fingerjoint1, sim.jointfloatparam_maxaccel, 0.1)
+sim.setJointTargetPosition(fingerjoint1, 0.1 )
+
 time.sleep(3)
 
 
