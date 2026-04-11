@@ -47,6 +47,10 @@ sim.setObjectFloatParam(armjoint2, sim.jointfloatparam_maxaccel, 0.1)
 sim.setJointTargetPosition(armjoint2, 1.2 )
 
 time.sleep(3)
+sim.setObjectFloatParam(fingerjoint, sim.jointfloatparam_maxvel, 0.1)
+sim.setObjectFloatParam(fingerjoint, sim.jointfloatparam_maxaccel, 0.1)
+sim.setJointTargetPosition(fingerjoint, 0.1 )
+time.sleep(3)
 
 print("Handle:", fingerjoint1)
 print("Name:", sim.getObjectAlias(fingerjoint1))
