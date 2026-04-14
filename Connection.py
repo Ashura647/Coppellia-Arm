@@ -16,49 +16,32 @@ fingerjoint1 = sim.getObject('/PGripStraight/motor')
 
 sim.startSimulation()
 
-time.sleep(3)
-
+#starting param
 sim.setObjectFloatParam(armjoint1, sim.jointfloatparam_maxvel, 0.1)
 sim.setObjectFloatParam(armjoint1, sim.jointfloatparam_maxaccel, 0.1)
+# sim.setObjectFloatParam(armjoint5, sim.jointfloatparam_maxvel, 0.1)
+# sim.setObjectFloatParam(armjoint5, sim.jointfloatparam_maxaccel, 0.1)
+# sim.setObjectFloatParam(armjoint3, sim.jointfloatparam_maxvel, 0.1)
+# sim.setObjectFloatParam(armjoint3, sim.jointfloatparam_maxaccel, 0.1)
+# sim.setObjectFloatParam(armjoint5, sim.jointfloatparam_maxvel, 0.1)
+# sim.setObjectFloatParam(armjoint5, sim.jointfloatparam_maxaccel, 0.1)
+# sim.setObjectFloatParam(armjoint2, sim.jointfloatparam_maxvel, 0.1)
+# sim.setObjectFloatParam(armjoint2, sim.jointfloatparam_maxaccel, 0.1)
+
+time.sleep(6)
 sim.setJointTargetPosition(armjoint1, -0.03)
+time.sleep(6)
+# sim.setJointTargetPosition(armjoint5, 0.9)
+# time.sleep(6)
+# sim.setJointTargetPosition(armjoint3, 1.1)
+# time.sleep(6)
+# sim.setJointTargetPosition(armjoint5, -2.5)
+# time.sleep(9)
+# sim.setJointTargetPosition(armjoint2, 1.8 )
+# time.sleep(6)
+# sim.setJointTargetPosition(fingerjoint1, -0.044)
 
-time.sleep(3)
-
-sim.setObjectFloatParam(armjoint5, sim.jointfloatparam_maxvel, 0.1)
-sim.setObjectFloatParam(armjoint5, sim.jointfloatparam_maxaccel, 0.1)
-sim.setJointTargetPosition(armjoint5, 0.9)
-
-time.sleep(3)
-
-sim.setObjectFloatParam(armjoint3, sim.jointfloatparam_maxvel, 0.1)
-sim.setObjectFloatParam(armjoint3, sim.jointfloatparam_maxaccel, 0.1)
-sim.setJointTargetPosition(armjoint3, 1)
-
-time.sleep(3)
-
-sim.setObjectFloatParam(armjoint5, sim.jointfloatparam_maxvel, 0.1)
-sim.setObjectFloatParam(armjoint5, sim.jointfloatparam_maxaccel, 0.1)
-sim.setJointTargetPosition(armjoint5, -1.5)
-
-time.sleep(3)
-
-sim.setObjectFloatParam(armjoint2, sim.jointfloatparam_maxvel, 0.1)
-sim.setObjectFloatParam(armjoint2, sim.jointfloatparam_maxaccel, 0.1)
-sim.setJointTargetPosition(armjoint2, 1.2 )
-
-time.sleep(3)
-sim.setObjectFloatParam(fingerjoint, sim.jointfloatparam_maxvel, 0.1)
-sim.setObjectFloatParam(fingerjoint, sim.jointfloatparam_maxaccel, 0.1)
-sim.setJointTargetPosition(fingerjoint, 0.1 )
-time.sleep(3)
-
-print("Handle:", fingerjoint1)
-print("Name:", sim.getObjectAlias(fingerjoint1))
-print("Type:", sim.getObjectType(fingerjoint1))
-
-sim.setJointTargetPosition(fingerjoint1, -0.044)
-
-time.sleep(5)
+time.sleep(6)
 sim.stopSimulation()
 
 
