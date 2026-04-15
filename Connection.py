@@ -29,7 +29,7 @@ def startingpostion():
     for _ in range(400):
         sim.step()
 
-def detection():
+def detection(n):
     sim.setJointTargetPosition(armjoint2, 1.4)
     sim.setJointTargetPosition(armjoint3, 1.77)
     sim.setJointTargetPosition(armjoint5, -1.4)
@@ -41,7 +41,7 @@ def detection():
     for _ in range(80):
         sim.step()
 
-    sim.setObjectParent(cube1, gripperTip, True)
+    sim.setObjectParent(n, gripperTip, True)
    
 
     
@@ -65,14 +65,15 @@ sim.setBufferProperty(conveyor, 'customData.__ctrl__', sim.packTable({'vel': 0.0
 
 grasped = False
 while True:
-    detected, distance, detectedObj, _, _ = sim.readProximitySensor(sensor)
+    detected, distance, detectedObjloc, detectedObjHandle, two22 = sim.readProximitySensor(sensor)
     
     
     if detected and not grasped:
         print("Object detected! Stopping conveyor")
 
         sim.setBufferProperty(conveyor, 'customData.__ctrl__', sim.packTable({'vel': 0.0}))
-        detection()
+        detection(detectedObjHandle)
+        
         for _ in range(400):
             sim.step()
         print(sim.getJointPosition(armjoint3))
