@@ -1,1 +1,2 @@
-coppeliasim_zmqremoteapi_client
+import sim          # CoppeliaSim remote API
+import simConst
