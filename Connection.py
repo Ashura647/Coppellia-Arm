@@ -62,8 +62,6 @@ def red(n):
     for _ in range(200):
         sim.step()
 
-    
-
 def blue(n):
     sim.setJointTargetPosition(armjoint1, 1.6)
     for _ in range(200):
@@ -81,8 +79,6 @@ def blue(n):
     sim.setObjectParent(n, -1, True)
     for _ in range(200):
         sim.step()
-
-    
 
 def green(n):
     sim.setJointTargetPosition(armjoint1, 2.2)
@@ -175,3 +171,6 @@ while True:
 
 
 sim.stopSimulation()
+
+
+
