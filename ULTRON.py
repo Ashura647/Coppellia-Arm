@@ -415,41 +415,230 @@ def steps(n):
     for _ in range(n):
         sim.step()
 
-def startingpostion():
-    for joint in (armjoint1, armjoint2, armjoint3,
-                  armjoint4, armjoint5, armjoint6):
-        sim.setJointTargetPosition(joint, 0)
-    steps(400)
+# def move_to_pose(j1, j2, j3, j4, j5, j6, steps=300):
+#     sim.setJointTargetPosition(armjoint1, j1)
+#     sim.setJointTargetPosition(armjoint2, j2)
+#     sim.setJointTargetPosition(armjoint3, j3)
+#     sim.setJointTargetPosition(armjoint4, j4)
+#     sim.setJointTargetPosition(armjoint5, j5)
+#     sim.setJointTargetPosition(armjoint6, j6)
 
-def detection(n):
-    sim.setJointTargetPosition(armjoint2, 1.4)
-    sim.setJointTargetPosition(armjoint3, 1.77)
-    sim.setJointTargetPosition(armjoint5, -1.4)
-    steps(200)
-    sim.setJointTargetPosition(fingerjoint1, -0.044)
-    steps(80)
-    sim.setObjectParent(n, gripperTip, True)
+#     for _ in range(steps):
+#         sim.step()
+
+# def startingpostion():
+#     for joint in (armjoint1, armjoint2, armjoint3,
+#                   armjoint4, armjoint5, armjoint6):
+#         sim.setJointTargetPosition(joint, 0)
+#     steps(400)
+
+# def detection(n):
+#     sim.setJointTargetPosition(armjoint2, 1.4)
+#     sim.setJointTargetPosition(armjoint3, 1.77)
+#     sim.setJointTargetPosition(armjoint5, -1.4)
+#     steps(200)
+#     sim.setJointTargetPosition(fingerjoint1, -0.044)
+#     steps(80)
+#     sim.setObjectParent(n, gripperTip, True)
+
+# def scan_position():
+#     sim.setJointTargetPosition(armjoint1, 0)
+#     sim.setJointTargetPosition(armjoint2, 0.8)
+#     steps(300)
+
+# def _drop(n, joint1_angle):
+#     sim.setJointTargetPosition(armjoint1, joint1_angle)
+#     steps(200)
+#     sim.setJointTargetPosition(armjoint5, -1.5)
+#     steps(500)
+#     sim.setJointTargetPosition(armjoint2, 1)
+#     steps(200)
+#     sim.setJointTargetPosition(fingerjoint1, 0)
+#     sim.setObjectParent(n, -1, True)
+#     steps(200)
+
+# def drop_red(n):   _drop(n,  1.0)
+# def drop_green(n): _drop(n,  2.2)
+# def drop_blue(n):  _drop(n,  1.6)
+# def drop_side(n):  _drop(n, -1.0)
+
+
+# def drop_red(n):
+#     sim.setJointTargetPosition(armjoint1, 1)
+#     for _ in range(200):
+#         sim.step()
+
+#     sim.setJointTargetPosition(armjoint5, -1.5)
+#     for _ in range(500):
+#         sim.step()
+
+#     sim.setJointTargetPosition(armjoint2, 1)
+#     for _ in range(200):
+#         sim.step()
+
+#     sim.setJointTargetPosition(fingerjoint1, 0)
+#     sim.setObjectParent(n, -1, True)
+#     for _ in range(200):
+#         sim.step()
+
+# def drop_blue(n):
+#     sim.setJointTargetPosition(armjoint1, 1.6)
+#     for _ in range(200):
+#         sim.step()
+
+#     sim.setJointTargetPosition(armjoint5, -1.5)
+#     for _ in range(500):
+#         sim.step()
+    
+#     sim.setJointTargetPosition(armjoint2, 1)
+#     for _ in range(200):
+#         sim.step()
+
+#     sim.setJointTargetPosition(fingerjoint1, 0)
+#     sim.setObjectParent(n, -1, True)
+#     for _ in range(200):
+#         sim.step()
+        
+
+# def drop_green(n):
+#     sim.setJointTargetPosition(armjoint1, -2.2)
+#     for _ in range(200):
+#         sim.step()
+
+#     sim.setJointTargetPosition(armjoint5, -1.5)
+#     for _ in range(500):
+#         sim.step()
+
+#     sim.setJointTargetPosition(armjoint2, -1)
+#     for _ in range(200):
+#         sim.step()
+
+#     sim.setJointTargetPosition(fingerjoint1, 0)
+#     sim.setObjectParent(n, -1, True)
+#     for _ in range(200):
+#         sim.step()
+
+# def drop_side(n):
+#     sim.setJointTargetPosition(armjoint1, -1)
+#     for _ in range(200):
+#         sim.step()
+
+#     sim.setJointTargetPosition(armjoint5, -1.5)
+#     for _ in range(500):
+#         sim.step()
+
+#     sim.setJointTargetPosition(armjoint2, 1)
+#     for _ in range(200):
+#         sim.step()
+
+#     sim.setJointTargetPosition(fingerjoint1, 0)
+#     sim.setObjectParent(n, -1, True)
+#     for _ in range(200):
+#         sim.step()
+
+def set_pose(q):
+    joints = [armjoint1, armjoint2, armjoint3,
+              armjoint4, armjoint5, armjoint6]
+
+    for j, angle in zip(joints, q):
+        sim.setJointTargetPosition(j, angle)
+
+
+def wait_until_stable(eps=0.01, max_steps=300):
+    joints = [armjoint1, armjoint2, armjoint3,
+              armjoint4, armjoint5, armjoint6]
+
+    for _ in range(max_steps):
+        err = 0
+        for j in joints:
+            q = sim.getJointPosition(j)
+            tq = sim.getJointTargetPosition(j)
+            err = max(err, abs(q - tq))
+
+        if err < eps:
+            return
+        sim.step()
+
+
+def startingposition():
+    HOME = [0, 0, 0, 0, 0, 0]
+    set_pose(HOME)
+    wait_until_stable()
+
 
 def scan_position():
-    sim.setJointTargetPosition(armjoint1, 0)
-    sim.setJointTargetPosition(armjoint2, 0.8)
-    steps(300)
+    SCAN = [
+        0.0,   # armjoint1
+        0.8,   # armjoint2
+        1.4,   # armjoint3
+        0.0,   # armjoint4
+        -1.4,  # armjoint5
+        0.0    # armjoint6
+    ]
+    set_pose(SCAN)
+    wait_until_stable()
 
-def _drop(n, joint1_angle):
-    sim.setJointTargetPosition(armjoint1, joint1_angle)
-    steps(200)
-    sim.setJointTargetPosition(armjoint5, -1.5)
-    steps(500)
-    sim.setJointTargetPosition(armjoint2, 1)
-    steps(200)
+
+def detection(obj_handle):
+
+    GRASP_POSE = [
+        0.0,
+        1.4,
+        1.77,
+        0.0,
+        -1.4,
+        0.0
+    ]
+
+    set_pose(GRASP_POSE)
+    wait_until_stable()
+
+    sim.setJointTargetPosition(fingerjoint1, -0.044)
+    wait_until_stable()
+
+    sim.setObjectParent(obj_handle, gripperTip, True)
+
+
+def drop(obj_handle, joint1_angle):
+
+    APPROACH_POSE = [
+        joint1_angle,
+        0.6,   # mid height (not too high, not dangerous)
+        1.4,   # stable elbow
+        0.0,
+        -1.2,
+        0.0
+    ]
+
+    DROP_POSE = [
+        joint1_angle,
+        0.9,   # slightly lower final alignment
+        1.8,
+        0.0,
+        -1.4,
+        0.0
+    ]
+
+    # 1. fast approach (don’t overshoot height anymore)
+    set_pose(APPROACH_POSE)
+    wait_until_stable()
+
+    # 2. fine alignment (this replaces your "too slow / too high" issue)
+    set_pose(DROP_POSE)
+    wait_until_stable()
+
+    # 3. release ONLY after full convergence
     sim.setJointTargetPosition(fingerjoint1, 0)
-    sim.setObjectParent(n, -1, True)
-    steps(200)
+    wait_until_stable()
 
-def drop_red(n):   _drop(n,  1.0)
-def drop_green(n): _drop(n,  2.2)
-def drop_blue(n):  _drop(n,  1.6)
-def drop_side(n):  _drop(n, -1.0)
+    sim.setObjectParent(obj_handle, -1, True)
+
+
+def drop_red(n):   drop(n,  1.0)
+def drop_green(n): drop(n,  2.2)
+def drop_blue(n):  drop(n,  1.6)
+def drop_side(n):  drop(n, -1.0)
+
 
 # ═══════════════════════════════════════════════════════════════════════════════
 #  MAIN
@@ -505,9 +694,11 @@ try:
             # 1. Pick up
             detection(detectedObjHandle)
             steps(400)
+            
 
             # 2. Scan position
             scan_position()
+            
 
             # 3. Classify (rules + optional NN)
             category = classify(detectedObjHandle)
@@ -517,8 +708,10 @@ try:
                 nn.objects_seen += 1
 
             # 5. Return home
-            startingpostion()
+            startingposition()
             steps(400)
+
+            
 
             # 6. Drop to correct bin
             if category == 'red':
@@ -530,6 +723,8 @@ try:
             else:
                 drop_side(detectedObjHandle)
 
+            
+
             steps(400)
             objects_sorted += 1
 
@@ -539,7 +734,8 @@ try:
                 nn.save()
 
             # 8. Home, restart belt, next object
-            startingpostion()
+            startingposition()
+            
             steps(400)
             sim.setBufferProperty(conveyor, 'customData.__ctrl__',
                                   sim.packTable({'vel': 0.017}))
